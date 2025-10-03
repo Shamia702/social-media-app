@@ -22,7 +22,7 @@ export function loadHeader() {
 
             const logoutBtn = document.getElementById("logoutBtn");
             if(logoutBtn) {
-                logoutBtn.addEventListener("clicK", () => {
+                logoutBtn.addEventListener("click", () => {
                     localStorage.removeItem("token");
                     localStorage.removeItem("user"); // optional
                     window.location.href= "../index.html";
