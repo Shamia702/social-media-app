@@ -1,144 +1,137 @@
-// // js/feed.js
-
-// import { getRequest, postRequest, putRequest, deleteRequest } from "./api.js";
-// import { getUser } from "./auth.js";
-
-// const postsContainer = document.getElementById("postsContainer");
-// const currentUser = getUser();
-
-// // ------------------- Render posts -------------------
-// function renderPosts(posts) {
-//   postsContainer.innerHTML = "";
-
-//   posts.forEach(post => {
-//     const isOwner = currentUser && post.owner === currentUser.name;
-
-//     const postEl = document.createElement("div");
-//     postEl.classList.add("card", "p-3", "mb-3");
-//     postEl.innerHTML = `
-//       <h5>${post.ownerName || "Anonymous"}</h5>
-//       <p>${post.body}</p>
-//       ${post.media ? `<img src="${post.media}" class="img-fluid rounded mb-2" alt="Post image">` : ""}
-//       ${isOwner ? `<button class="btn btn-sm btn-primary edit-btn">Edit</button>
-//                    <button class="btn btn-sm btn-danger delete-btn">Delete</button>` : ""}
-//       <hr>
-//     `;
-
-//     if (isOwner) {
-//       postEl.querySelector(".edit-btn").addEventListener("click", async () => {
-//         const newContent = prompt("Edit your post:", post.body);
-//         if (newContent) {
-//           const updated = await putRequest(`/social/posts/${post.id}`, { body: newContent, media: post.media || null });
-//           postEl.querySelector("p").textContent = updated.body;
-//         }
-//       });
-
-//       postEl.querySelector(".delete-btn").addEventListener("click", async () => {
-//         if (confirm("Are you sure you want to delete this post?")) {
-//           await deleteRequest(`/social/posts/${post.id}`);
-//           postEl.remove();
-//         }
-//       });
-//     }
-
-//     postsContainer.appendChild(postEl);
-//   });
-// }
-
-// // ------------------- Load feed -------------------
-// async function loadFeed() {
-//   try {
-//     const myPosts = await getRequest("/social/posts");
-//     const followingPosts = await getRequest("/social/posts/following");
-
-//     const allPosts = [...myPosts, ...followingPosts]
-//       .sort((a, b) => new Date(b.created) - new Date(a.created));
-
-//     renderPosts(allPosts);
-//   } catch (err) {
-//     console.error("Failed to load feed:", err);
-//     postsContainer.innerHTML = `<p class="text-danger">Failed to load posts: ${err.message}</p>`;
-//   }
-// }
-
-// // ------------------- Create post -------------------
-// const createPostForm = document.getElementById("createPostForm");
-// createPostForm.addEventListener("submit", async (e) => {
-//   e.preventDefault();
-
-//   const body = document.getElementById("postBody").value.trim();
-//   const image = document.getElementById("postImage").value.trim();
-
-//   if (!body) return alert("Post content cannot be empty!");
-
-//   try {
-//     await postRequest("/social/posts", { body, media: image || null });
-//     loadFeed();
-//     document.getElementById("createPostModal").querySelector(".btn-close").click();
-//     createPostForm.reset();
-//   } catch (err) {
-//     console.error("Failed to create post:", err);
-//     alert(err.message);
-//   }
-// });
-
-// // ------------------- Initialize -------------------
-// document.addEventListener("DOMContentLoaded", loadFeed);
-
-// js/feed.js
 import { getRequest, postRequest } from "./api.js";
 
-// Elements
 const postsContainer = document.getElementById("postsContainer");
 const createPostForm = document.getElementById("createPostForm");
-const postTitleInput = document.getElementById("postTitle");
-const postBodyInput = document.getElementById("postBody");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 
-// Load all posts
+let allPosts = []; // store fetched posts
+
+// Load posts from API
 async function loadFeed() {
   try {
-    const posts = await getRequest("/social/posts"); // your own posts
-    const followingPosts = await getRequest("/social/posts/following"); // posts from followed users
-    const allPosts = [...posts, ...followingPosts].sort(
-      (a, b) => new Date(b.created) - new Date(a.created)
-    );
+    const data = await getRequest("/social/posts?_author=true&_comments=true&_reactions=true");
+    console.log("Fetched posts:", data);
 
-    postsContainer.innerHTML = "";
-    allPosts.forEach((post) => {
-      const postEl = document.createElement("div");
-      postEl.className = "card p-3 mb-3";
-      postEl.innerHTML = `
-        <h5>${post.ownerName || "Anonymous"}</h5>
-        <p>${post.body}</p>
-        ${post.media ? `<img src="${post.media}" class="img-fluid mb-2"/>` : ""}
-        <hr>
+    if (!data || !data.data || data.data.length === 0) {
+      postsContainer.innerHTML = `
+        <p class="text-center text-muted fs-5">No posts yet. Follow someone or create a new post!</p>
       `;
-      postsContainer.appendChild(postEl);
-    });
-  } catch (err) {
-    console.error("Failed to load feed:", err);
-    postsContainer.innerHTML = `<p class="text-danger">Failed to load posts: ${err.message}</p>`;
+      allPosts = [];
+      return;
+    }
+
+    allPosts = data.data;
+    renderPosts(allPosts);
+
+  } catch (error) {
+    console.error("Failed to load feed:", error);
+    postsContainer.innerHTML = `
+      <p class="text-danger text-center mt-5">Failed to load posts. ${error.message}</p>
+    `;
   }
 }
 
-// Handle creating a new post
-createPostForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const body = postBodyInput.value.trim();
-  const title = postTitleInput.value.trim();
-
-  if (!body) return alert("Post content cannot be empty");
-
-  try {
-    await postRequest("/social/posts", { body, title });
-    postBodyInput.value = "";
-    postTitleInput.value = "";
-    loadFeed(); // refresh posts
-  } catch (err) {
-    console.error("Failed to create post:", err);
-    alert(err.message);
+// Render posts array
+function renderPosts(posts) {
+  if (!posts || posts.length === 0) {
+    postsContainer.innerHTML = `
+      <p class="text-center text-muted fs-5">No posts match your search.</p>
+    `;
+    return;
   }
-});
 
-// Initialize feed
+  postsContainer.innerHTML = posts
+    .map(post => renderPost(post))
+    .join("");
+}
+
+// Render single post card
+function renderPost(post) {
+  const authorName = post.author?.name || "Unknown";
+  const avatar = post.author?.avatar?.url || "https://via.placeholder.com/50";
+  const title = post.title || "Untitled Post";
+  const body = post.body || "";
+  const image = post.media?.url || "";
+  const postId = post.id;
+
+  return `
+    <div class="col-12 col-md-6 col-lg-4 d-flex">
+      <div class="card shadow-sm border-0 rounded-4 flex-fill d-flex flex-column">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex align-items-center mb-3">
+            <img src="${avatar}" alt="${authorName}" class="rounded-circle me-3" width="50" height="50" />
+            <h5 class="mb-0">${authorName}</h5>
+          </div>
+          <h5 class="card-title fw-bold">${title}</h5>
+          <p class="card-text flex-grow-1">${body}</p>
+          ${image ? `<img src="${image}" class="img-fluid rounded mt-2" alt="Post image">` : ""}
+          <a href="./post.html?id=${postId}" class="btn btn-primary mt-3">View Post</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Handle creating a new post
+if (createPostForm) {
+  createPostForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("postTitle").value.trim();
+    const body = document.getElementById("postBody").value.trim();
+    const imageUrl = document.getElementById("postImage")?.value.trim() || "";
+
+    if (!title || !body) return alert("Please fill in all required fields.");
+
+    try {
+      const newPost = await postRequest("/social/posts", {
+        title,
+        body,
+        media: imageUrl ? { url: imageUrl } : undefined,
+      });
+
+      console.log("Post created:", newPost);
+      alert("Post created successfully!");
+      
+      createPostForm.reset();
+      loadFeed(); // reload feed
+
+    } catch (error) {
+      console.error("Failed to create post:", error);
+      alert("Failed to create post. " + error.message);
+    }
+  });
+}
+
+// Handle search functionality
+if (searchBtn) {
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+      renderPosts(allPosts);
+      return;
+    }
+
+    const filteredPosts = allPosts.filter(post => {
+      const title = post.title?.toLowerCase() || "";
+      const body = post.body?.toLowerCase() || "";
+      return title.includes(query) || body.includes(query);
+    });
+
+    renderPosts(filteredPosts);
+  });
+}
+
+// Optional: search on Enter key press
+if (searchInput) {
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchBtn.click();
+    }
+  });
+}
+
+// Load feed on page load
 document.addEventListener("DOMContentLoaded", loadFeed);

@@ -19,15 +19,22 @@ async function handleResponse(response) {
 }
 
 /**
- * function to get auth token from localStorage.
- * @returns {Object} Headers object with authorization field if token exists.
+ * Builds headers with Authorization and API key if available.
+ * @returns {Object} Headers object for API calls.
  */
 function getHeaders() {
   const token = localStorage.getItem("token");
+   const apiKey = "4900a64f-c4b6-466c-91a0-a7066502968e"; 
+
   const headers = {
     "Content-Type": "application/json",
+    "X-Noroff-API-Key": apiKey,
   };
-  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   return headers;
 }
 
