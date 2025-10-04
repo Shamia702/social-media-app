@@ -30,3 +30,14 @@ Built using **HTML, CSS, JavaScript (ES Modules)**, and powered by the **Noroff 
 
 👉 Live Site: https://talkify-webapp.netlify.app
 
+---
+
+
+## ⚙️ Setup & Run Locally
+
+### 1️⃣ Clone the repository  
+```bash
+git clone https://github.com/Shamia702/talkify-webapp.git
+cd talkify-webapp
+
+
