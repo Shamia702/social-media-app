@@ -10,12 +10,20 @@ const BASE_URL = "https://v2.api.noroff.dev";
 
 async function handleResponse(response) {
   if (!response.ok) {
-    const errData = await response.json().catch(() => ({}));
+    // Try to parse error message if any
+    const errData = await response.text().then(text => text ? JSON.parse(text) : {});
     const message =
-      errData.errors?.[0].message || `HTTP error! Status: ${response.status}`;
+      errData.errors?.[0]?.message || `HTTP error! Status: ${response.status}`;
     throw new Error(message);
   }
-  return response.json();
+
+  // If response has no content, return empty object
+  if (response.status === 204 || response.headers.get("content-length") === "0") {
+    return {};
+  }
+
+  // Try parsing JSON, fallback to empty object
+  return response.json().catch(() => ({}));
 }
 
 /**
@@ -104,33 +112,25 @@ export async function deleteRequest(endpoint) {
   return handleResponse(response);
 }
 
-/**
- * Follow a user
- * @async
- * @param {string} username
- * @returns {Promise<Object>} Updated profile data
- */
+// --- Follow a user
 export async function followUser(username) {
   const response = await fetch(`${BASE_URL}/social/profiles/${username}/follow`, {
     method: "PUT",
     headers: getHeaders(),
-    body: JSON.stringify({}), // empty body required
   });
   return handleResponse(response);
 }
 
-/**
- * Unfollow a user
- * @async
- * @param {string} username
- * @returns {Promise<Object>} Updated profile data
- */
+// --- Unfollow a user
 export async function unfollowUser(username) {
   const response = await fetch(`${BASE_URL}/social/profiles/${username}/unfollow`, {
     method: "PUT",
     headers: getHeaders(),
-    body: JSON.stringify({}), // empty body required
   });
   return handleResponse(response);
 }
+
+
+
+
 
