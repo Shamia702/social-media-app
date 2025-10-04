@@ -22,7 +22,7 @@ Built using **HTML, CSS, JavaScript (ES Modules)**, and powered by the **Noroff 
 | Category | Tools / Frameworks |
 |-----------|--------------------|
 | Frontend | HTML5, Bootstrap 5, JavaScript (Modules) |
-| API | [Noroff Social API (v2)](https://docs.noroff.dev/social-endpoints) |
+| API | [https://docs.noroff.dev/docs/v2] |
 | Hosting | [Netlify](https://www.netlify.com/) |
 | Version Control | Git + GitHub |
 
