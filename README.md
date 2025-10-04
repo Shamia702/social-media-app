@@ -37,7 +37,8 @@ Built using **HTML, CSS, JavaScript (ES Modules)**, and powered by the **Noroff 
 
 ### 1️⃣ Clone the repository  
 ```bash
-git clone https://github.com/Shamia702/talkify-webapp.git
-cd talkify-webapp
+git clone https://github.com/Shamia702/social-media-app.git
+cd social-media-app
+
 
 
