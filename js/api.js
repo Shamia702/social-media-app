@@ -103,3 +103,34 @@ export async function deleteRequest(endpoint) {
   });
   return handleResponse(response);
 }
+
+/**
+ * Follow a user
+ * @async
+ * @param {string} username
+ * @returns {Promise<Object>} Updated profile data
+ */
+export async function followUser(username) {
+  const response = await fetch(`${BASE_URL}/social/profiles/${username}/follow`, {
+    method: "PUT",
+    headers: getHeaders(),
+    body: JSON.stringify({}), // empty body required
+  });
+  return handleResponse(response);
+}
+
+/**
+ * Unfollow a user
+ * @async
+ * @param {string} username
+ * @returns {Promise<Object>} Updated profile data
+ */
+export async function unfollowUser(username) {
+  const response = await fetch(`${BASE_URL}/social/profiles/${username}/unfollow`, {
+    method: "PUT",
+    headers: getHeaders(),
+    body: JSON.stringify({}), // empty body required
+  });
+  return handleResponse(response);
+}
+
