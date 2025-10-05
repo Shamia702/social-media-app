@@ -11,14 +11,19 @@ const BASE_URL = "https://v2.api.noroff.dev";
 async function handleResponse(response) {
   if (!response.ok) {
     // Try to parse error message if any
-    const errData = await response.text().then(text => text ? JSON.parse(text) : {});
+    const errData = await response
+      .text()
+      .then((text) => (text ? JSON.parse(text) : {}));
     const message =
       errData.errors?.[0]?.message || `HTTP error! Status: ${response.status}`;
     throw new Error(message);
   }
 
   // If response has no content, return empty object
-  if (response.status === 204 || response.headers.get("content-length") === "0") {
+  if (
+    response.status === 204 ||
+    response.headers.get("content-length") === "0"
+  ) {
     return {};
   }
 
@@ -32,7 +37,7 @@ async function handleResponse(response) {
  */
 function getHeaders() {
   const token = localStorage.getItem("token");
-   const apiKey = "4900a64f-c4b6-466c-91a0-a7066502968e"; 
+  const apiKey = "4900a64f-c4b6-466c-91a0-a7066502968e";
 
   const headers = {
     "Content-Type": "application/json",
@@ -112,25 +117,24 @@ export async function deleteRequest(endpoint) {
   return handleResponse(response);
 }
 
-// --- Follow a user
 export async function followUser(username) {
-  const response = await fetch(`${BASE_URL}/social/profiles/${username}/follow`, {
-    method: "PUT",
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${BASE_URL}/social/profiles/${username}/follow`,
+    {
+      method: "PUT",
+      headers: getHeaders(),
+    }
+  );
   return handleResponse(response);
 }
 
-// --- Unfollow a user
 export async function unfollowUser(username) {
-  const response = await fetch(`${BASE_URL}/social/profiles/${username}/unfollow`, {
-    method: "PUT",
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${BASE_URL}/social/profiles/${username}/unfollow`,
+    {
+      method: "PUT",
+      headers: getHeaders(),
+    }
+  );
   return handleResponse(response);
 }
-
-
-
-
-

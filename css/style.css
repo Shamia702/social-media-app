@@ -1,0 +1,205 @@
+.talkify-navbar {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+}
+
+.talkify-navbar .nav-link {
+  color: #222 !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.talkify-navbar .nav-link:hover {
+  color: #0056b3 !important;
+}
+
+.talkify-navbar .navbar-brand {
+  font-size: 1.5rem;
+  color: #222 !important;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+
+#welcome-page {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #333;
+}
+
+.welcome-content h1,
+.welcome-content p {
+  color: #fff;
+}
+
+.btn-login {
+  background-color: #ffc107;
+  color: #212529;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #ffffff;
+  color: #0d6efd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.btn-register:hover {
+  transform: translateY(-2px);
+}
+
+#profile-page {
+  background-color: #f8f9fa;
+}
+#profileBanner {
+  object-fit: cover;
+  height: 300px;
+}
+#profileAvatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 3px solid white;
+  position: absolute;
+  bottom: -50px;
+  left: 30px;
+}
+.profile-header {
+  position: relative;
+}
+
+#post-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+}
+#posts-heading{
+    padding-top: 10px;
+}
+.post-card {
+  border-radius: 20px;
+  background-color: #ffffffb3;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#loader {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+#likeBtn {
+  background: #89f7fe;
+  color: white;
+}
+
+#commentForm button {
+  width: 100%;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: white;
+}
+
+#register-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+}
+
+.register-card {
+  max-width: 450px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ffffffb3;
+  padding: 1.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.register-card .form-text {
+  color: #e79e7c;
+  font-weight: 400;
+}
+
+.register-card .submit-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.register-card a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+#login-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+}
+.login-card {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ffffffb3;
+  padding: 1.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+.login-card .submit-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+}
+.login-card a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+#feed-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+}
+
+.create-post-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  border: none;
+  color: white;
+}
+
+.search-btn {
+  background-color: #66a6ff;
+  color: white;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: white;
+}
+
+#edit-post-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+}
+
+.post-form {
+  max-width: 600px;
+  background-color: #ffffffb3;
+  padding: 2rem;
+  border-radius: 20px;
+  margin: 0 auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-form .save-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: white;
+}
+
+.post-form .cancel-btn {
+  background: #adb5bd;
+  color: white;
+}
+
+.footer{
+     background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #333;
+}

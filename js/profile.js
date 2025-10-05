@@ -1,10 +1,7 @@
-import {
-  getRequest,
-  postRequest,
-  deleteRequest,
-  followUser,
-  unfollowUser,
-} from "./api.js";
+import { getRequest, deleteRequest, followUser, unfollowUser } from "./api.js";
+
+import { getUser, getToken } from "./auth.js";
+import { loader } from "./loader.js";
 
 const profileNameEl = document.getElementById("profileName");
 const profileEmailEl = document.getElementById("profileEmail");
@@ -23,11 +20,14 @@ const connectionsModalLabel = document.getElementById("connectionsModalLabel");
 const connectionsList = document.getElementById("connectionsList");
 
 const queryUser = new URLSearchParams(window.location.search).get("user");
-const loggedInUser = JSON.parse(localStorage.getItem("user"));
+const loggedInUser = getUser();
 
-let currentUserData = null; // currently viewed profile
+if (!getToken()) {
+  window.location.href = "./login.html";
+}
 
-// ------------------- Follow Button -------------------
+let currentUserData = null;
+
 followBtn.addEventListener("click", async () => {
   if (!currentUserData) return;
   followBtn.disabled = true;
@@ -43,23 +43,19 @@ followBtn.addEventListener("click", async () => {
       await followUser(currentUserData.name);
     }
 
-    // Refresh profile data
     const updatedData = await getRequest(
       `/social/profiles/${currentUserData.name}?_followers=true&_following=true`
     );
     currentUserData = updatedData.data || updatedData;
 
-    // Update counts
     followersCountEl.textContent = currentUserData.followers?.length ?? 0;
     followingCountEl.textContent = currentUserData.following?.length ?? 0;
 
-    // Update button state
     const nowFollowing = currentUserData.followers?.some(
       (f) => f.name === loggedInUser?.name
     );
     updateFollowButton(nowFollowing);
 
-    // Update modal if open
     if (connectionsList.innerHTML) {
       openConnectionsModal("followers", currentUserData.followers);
     }
@@ -70,8 +66,6 @@ followBtn.addEventListener("click", async () => {
     followBtn.disabled = false;
   }
 });
-
-// ------------------- Load Profile Info -------------------
 async function loadUserInfo() {
   try {
     const username = queryUser || loggedInUser?.name;
@@ -101,7 +95,6 @@ async function loadUserInfo() {
       openConnectionsModal("following", currentUserData.following)
     );
 
-    // Show follow button only on other users
     if (queryUser && queryUser !== loggedInUser?.name) {
       followBtn.classList.remove("d-none");
       const isFollowing = user.followers?.some(
@@ -121,14 +114,12 @@ async function loadUserInfo() {
   }
 }
 
-// ------------------- Update Follow Button -------------------
 function updateFollowButton(isFollowing) {
   followBtn.textContent = isFollowing ? "Unfollow" : "Follow";
   followBtn.classList.toggle("btn-primary", isFollowing);
   followBtn.classList.toggle("btn-outline-primary", !isFollowing);
 }
 
-// ------------------- Connections Modal -------------------
 function openConnectionsModal(type, users = []) {
   connectionsModalLabel.textContent =
     type === "followers" ? "Followers" : "Following";
@@ -162,14 +153,15 @@ function openConnectionsModal(type, users = []) {
   modal.show();
 }
 
-// ------------------- Load Posts -------------------
 async function loadUserPosts(user) {
   if (!user) return;
 
   try {
+    loader.show();
     const data = await getRequest(
       "/social/posts?_author=true&_comments=true&_reactions=true"
     );
+    loader.hide();
     const userPosts = data.data.filter(
       (post) => post.author?.name === user.name
     );
@@ -181,12 +173,12 @@ async function loadUserPosts(user) {
 
     userPostsContainer.innerHTML = userPosts.map(renderPost).join("");
   } catch (err) {
+    loader.hide();
     console.error("Failed to load posts:", err);
     userPostsContainer.innerHTML = `<p class="text-danger">Failed to load posts. ${err.message}</p>`;
   }
 }
 
-// ------------------- Render Single Post -------------------
 function renderPost(post) {
   const title = post.title || "Untitled";
   const body = post.body || "";
@@ -226,7 +218,6 @@ function renderPost(post) {
   `;
 }
 
-// ------------------- Delete Post -------------------
 window.deletePost = async function (postId) {
   if (!confirm("Are you sure you want to delete this post?")) return;
 
@@ -240,7 +231,6 @@ window.deletePost = async function (postId) {
   }
 };
 
-// ------------------- Initialize -------------------
 document.addEventListener("DOMContentLoaded", async () => {
   const user = await loadUserInfo();
   await loadUserPosts(user);

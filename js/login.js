@@ -1,4 +1,5 @@
 import { postRequest } from "./api.js";
+import { saveAuth } from "./auth.js";
 
 const loginForm = document.getElementById("loginForm");
 
@@ -11,8 +12,10 @@ loginForm.addEventListener("submit", async (e) => {
   try {
     const data = await postRequest("/auth/login", { email, password });
 
-    localStorage.setItem("token", data.data.accessToken);
-    localStorage.setItem("user", JSON.stringify(data.data));
+    saveAuth({
+      accesstoken: data.data.accessToken,
+      user: data.data,
+    });
 
     window.location.href = "./feed.html";
   } catch (err) {

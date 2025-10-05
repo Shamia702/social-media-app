@@ -11,10 +11,11 @@ if (!postId) {
   window.location.href = "profile.html";
 }
 
-// Load existing post data
 async function loadPost() {
   try {
-    const data = await getRequest(`/social/posts/${postId}?_author=true&_comments=true&_reactions=true`);
+    const data = await getRequest(
+      `/social/posts/${postId}?_author=true&_comments=true&_reactions=true`
+    );
     const post = data.data;
 
     postTitleInput.value = post.title || "";
@@ -27,7 +28,6 @@ async function loadPost() {
   }
 }
 
-// Handle form submission
 editPostForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -43,12 +43,11 @@ editPostForm.addEventListener("submit", async (e) => {
   try {
     await putRequest(`/social/posts/${postId}`, updatedPost);
     alert("Post updated successfully!");
-    window.location.href = "profile.html"; // Redirect to profile after saving
+    window.location.href = "profile.html";
   } catch (err) {
     console.error("Failed to update post:", err);
     alert("Failed to update post: " + err.message);
   }
 });
 
-// Initialize
 document.addEventListener("DOMContentLoaded", loadPost);
