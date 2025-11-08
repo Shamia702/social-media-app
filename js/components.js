@@ -1,7 +1,7 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export function loadHeader() {
-  fetch("../components/header.html")
+  fetch("/components/header.html")
     .then((res) => res.text())
     .then((data) => {
       document.getElementById("header").innerHTML = data;
@@ -42,7 +42,7 @@ export function loadHeader() {
 }
 
 export function loadFooter() {
-  fetch("../components/footer.html")
+  fetch("/components/footer.html")
     .then((response) => response.text())
     .then((data) => {
       document.getElementById("footer").innerHTML = data;
