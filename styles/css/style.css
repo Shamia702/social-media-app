@@ -11866,6 +11866,10 @@ body {
   padding-top: 56px;
 }
 
+main {
+  flex: 1;
+}
+
 .talkify-navbar {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
@@ -12050,6 +12054,7 @@ body {
 .footer {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
   color: #333;
+  padding: 1rem 0;
 }
 
 /*# sourceMappingURL=style.css.map */
