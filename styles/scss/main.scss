@@ -7,6 +7,9 @@ body {
   min-height: 100vh;
   padding-top: 56px;
 }
+main {
+  flex: 1; // takes up remaining space between header and footer
+}
 
 .talkify-navbar {
   @include gradient-bg(#89f7fe, #66a6ff);
@@ -165,4 +168,5 @@ body {
 .footer {
   @include gradient-bg(#89f7fe, #66a6ff);
   color: #333;
+  padding: 1rem 0;
 }
