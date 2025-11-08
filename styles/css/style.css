@@ -11869,68 +11869,97 @@ body {
 .talkify-navbar {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
-
 .talkify-navbar .nav-link {
   color: #222 !important;
   font-weight: 500;
   transition: color 0.3s ease;
 }
-
 .talkify-navbar .nav-link:hover {
   color: #0056b3 !important;
 }
-
 .talkify-navbar .navbar-brand {
   font-size: 1.5rem;
   color: #222 !important;
 }
-
-.navbar-toggler {
+.talkify-navbar .navbar-toggler {
   border: none;
 }
 
 #welcome-page {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: #333;
-}
-
-.welcome-content h1, .welcome-content .h1,
-.welcome-content p {
   color: #fff;
 }
-
-.btn-login {
-  background-color: #ffc107;
+#welcome-page .welcome-content h1,
+#welcome-page .welcome-content p {
+  color: #fff;
+}
+#welcome-page .welcome-content .btn-login {
+  background: linear-gradient(135deg, #ffc107, #ffc107);
   color: #212529;
+  border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
-
-.btn-login:hover {
+#welcome-page .welcome-content .btn-login:hover {
   transform: translateY(-2px);
 }
-
-.btn-register {
-  background-color: #ffffff;
+#welcome-page .welcome-content .btn-register {
+  background: linear-gradient(135deg, #ffffff, #ffffff);
   color: #0d6efd;
+  border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
-
-.btn-register:hover {
+#welcome-page .welcome-content .btn-register:hover {
   transform: translateY(-2px);
+}
+
+.register-card,
+.login-card {
+  max-width: 450px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.7019607843);
+  padding: 1.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+.register-card .submit-btn,
+.login-card .submit-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+.register-card .submit-btn:hover,
+.login-card .submit-btn:hover {
+  transform: translateY(-2px);
+}
+.register-card .submit-btn,
+.login-card .submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+.register-card a,
+.login-card a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.register-card .form-text,
+.login-card .form-text {
+  color: #e79e7c;
+  font-weight: 400;
 }
 
 #profile-page {
   background-color: #f8f9fa;
 }
-
-#profileBanner {
+#profile-page #profileBanner {
   object-fit: cover;
   height: 300px;
 }
-
-#profileAvatar {
+#profile-page #profileAvatar {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -11939,20 +11968,28 @@ body {
   bottom: -50px;
   left: 30px;
 }
-
-.profile-header {
+#profile-page .profile-header {
   position: relative;
 }
 
-#post-page {
+#feed-page {
   background: linear-gradient(135deg, #e0f7fa, #fff1eb);
 }
-
-#posts-heading {
-  padding-top: 10px;
+#feed-page .create-post-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
 }
-
-.post-card {
+#feed-page .create-post-btn:hover {
+  transform: translateY(-2px);
+}
+#feed-page .search-btn {
+  background-color: #66a6ff;
+  color: white;
+}
+#feed-page .post-card {
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.7019607843);
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
@@ -11960,104 +11997,34 @@ body {
   margin-bottom: 1.5rem;
 }
 
-#loader {
-  text-align: center;
-  margin: 2rem 0;
+#post-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
 }
-
-#likeBtn {
+#post-page #posts-heading {
+  padding-top: 10px;
+}
+#post-page #likeBtn {
   background: #89f7fe;
   color: white;
 }
-
-#commentForm button {
-  width: 100%;
+#post-page #commentForm button {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: white;
-}
-
-#register-page {
-  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
-}
-
-.register-card {
-  max-width: 450px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.7019607843);
-  padding: 1.5rem;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
-}
-
-.register-card .form-text {
-  color: #e79e7c;
-  font-weight: 400;
-}
-
-.register-card .submit-btn {
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: white;
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.register-card a {
-  color: #007bff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-#login-page {
-  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
-}
-
-.login-card {
-  max-width: 400px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.7019607843);
-  padding: 1.5rem;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
-}
-
-.login-card .submit-btn {
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: white;
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.login-card a {
-  color: #007bff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-#feed-page {
-  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
-}
-
-.create-post-btn {
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #fff;
   border: none;
-  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
 }
-
-.search-btn {
-  background-color: #66a6ff;
-  color: white;
+#post-page #commentForm button:hover {
+  transform: translateY(-2px);
 }
-
-.submit-btn {
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: white;
+#post-page #commentForm button {
+  width: 100%;
 }
 
 #edit-post-page {
   background: linear-gradient(135deg, #e0f7fa, #fff1eb);
 }
-
-.post-form {
+#edit-post-page .post-form {
   max-width: 600px;
   background-color: rgba(255, 255, 255, 0.7019607843);
   padding: 2rem;
@@ -12065,13 +12032,17 @@ body {
   margin: 0 auto;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-
-.post-form .save-btn {
+#edit-post-page .post-form .save-btn {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  color: white;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
 }
-
-.post-form .cancel-btn {
+#edit-post-page .post-form .save-btn:hover {
+  transform: translateY(-2px);
+}
+#edit-post-page .post-form .cancel-btn {
   background: #adb5bd;
   color: white;
 }

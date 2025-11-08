@@ -1,5 +1,4 @@
-
-import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export function loadHeader() {
   fetch("../components/header.html")
@@ -53,4 +52,3 @@ export function loadFooter() {
 
 loadHeader();
 loadFooter();
-
