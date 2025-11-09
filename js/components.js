@@ -1,6 +1,4 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
-
-// HEADER
 export function loadHeader() {
   const header = document.getElementById("header");
 
@@ -39,7 +37,6 @@ export function loadHeader() {
   const logoutBtn = document.getElementById("logoutBtn");
   const navbarCollapse = document.querySelector(".navbar-collapse");
 
-  // Function to update navbar links based on login state
   function updateNavbar() {
     const token = localStorage.getItem("token");
 
@@ -55,26 +52,20 @@ export function loadHeader() {
       feedLink.style.display = "none";
       profileLink.style.display = "none";
       logoutBtn.style.display = "none";
-
-      // Close collapse to make links clickable
-      if (navbarCollapse.classList.contains("show")) {
-        navbarCollapse.classList.remove("show");
-      }
     }
   }
-
-  // Initial update
   updateNavbar();
 
-  // Logout functionality
   logoutBtn?.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    updateNavbar(); // Update links after logout
+    updateNavbar();
+    if (navbarCollapse.classList.contains("show")) {
+      navbarCollapse.classList.remove("show");
+    }
     window.location.href = "../index.html";
   });
 
-  // Optional: Close collapse when any nav-link is clicked (mobile)
   document.querySelectorAll(".navbar-nav .nav-link").forEach((link) => {
     link.addEventListener("click", () => {
       if (navbarCollapse.classList.contains("show")) {
@@ -83,8 +74,6 @@ export function loadHeader() {
     });
   });
 }
-
-// FOOTER
 export function loadFooter() {
   const footer = document.getElementById("footer");
   footer.innerHTML = `
@@ -94,7 +83,6 @@ export function loadFooter() {
   `;
 }
 
-// INITIALIZE
 document.addEventListener("DOMContentLoaded", () => {
   loadHeader();
   loadFooter();
