@@ -11867,7 +11867,7 @@ body {
 }
 
 main {
-  flex: 1;
+  flex-grow: 1;
 }
 
 .talkify-navbar {

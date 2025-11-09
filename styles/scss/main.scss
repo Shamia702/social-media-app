@@ -8,7 +8,7 @@ body {
   padding-top: 56px;
 }
 main {
-  flex: 1; // takes up remaining space between header and footer
+  flex-grow: 1; // takes up remaining space between header and footer
 }
 
 .talkify-navbar {
