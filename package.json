@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "sass": "^1.93.3"
+  },
+  "scripts": {
+    "dev": "sass styles/scss/main.scss styles/css/style.css --watch",
+    "build": "sass styles/scss/main.scss styles/css/style.css --style=compressed"
+  }
+}
