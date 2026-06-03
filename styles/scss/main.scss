@@ -1,0 +1,172 @@
+@use "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "mixins";
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 56px;
+}
+main {
+  flex-grow: 1; // takes up remaining space between header and footer
+}
+
+.talkify-navbar {
+  @include gradient-bg(#89f7fe, #66a6ff);
+
+  .nav-link {
+    color: #222 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3 !important;
+    }
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    color: #222 !important;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+}
+
+#welcome-page {
+  @include gradient-bg(#89f7fe, #66a6ff);
+  color: #fff;
+
+  .welcome-content {
+    h1,
+    p {
+      color: #fff;
+    }
+
+    .btn-login {
+      @include btn-style(#ffc107, #ffc107, #212529);
+    }
+
+    .btn-register {
+      @include btn-style(#ffffff, #ffffff, #0d6efd);
+    }
+  }
+}
+
+.register-card,
+.login-card {
+  max-width: 450px;
+  width: 100%;
+  @include rounded(20px);
+  background-color: #ffffffb3;
+  padding: 1.5rem;
+  @include card-shadow;
+
+  .submit-btn {
+    @include btn-style(#89f7fe, #66a6ff);
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .form-text {
+    color: #e79e7c;
+    font-weight: 400;
+  }
+}
+
+#profile-page {
+  background-color: #f8f9fa;
+
+  #profileBanner {
+    object-fit: cover;
+    height: 300px;
+  }
+
+  #profileAvatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 3px solid white;
+    position: absolute;
+    bottom: -50px;
+    left: 30px;
+  }
+
+  .profile-header {
+    position: relative;
+  }
+}
+
+#feed-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+
+  .create-post-btn {
+    @include btn-style(#89f7fe, #66a6ff);
+  }
+
+  .search-btn {
+    background-color: #66a6ff;
+    color: white;
+  }
+
+  .post-card {
+    @include rounded(20px);
+    background-color: #ffffffb3;
+    @include card-shadow;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+#post-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+
+  #posts-heading {
+    padding-top: 10px;
+  }
+
+  #likeBtn {
+    background: #89f7fe;
+    color: white;
+  }
+
+  #commentForm button {
+    @include btn-style(#89f7fe, #66a6ff);
+    width: 100%;
+  }
+}
+
+#edit-post-page {
+  background: linear-gradient(135deg, #e0f7fa, #fff1eb);
+
+  .post-form {
+    max-width: 600px;
+    background-color: #ffffffb3;
+    padding: 2rem;
+    @include rounded(20px);
+    margin: 0 auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+    .save-btn {
+      @include btn-style(#89f7fe, #66a6ff);
+    }
+
+    .cancel-btn {
+      background: #adb5bd;
+      color: white;
+    }
+  }
+}
+
+.footer {
+  @include gradient-bg(#89f7fe, #66a6ff);
+  color: #333;
+  padding: 1rem 0;
+}
